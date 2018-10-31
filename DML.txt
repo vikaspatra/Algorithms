@@ -1,0 +1,73 @@
+DML COMMANDS:-
+
+INSERT:-
+
+mysql> insert into employee
+    -> values(101,'Charmi','EXTC'),
+    -> (201,'Bhavya','CS'),
+    -> (301,'Disha','IT'),
+    -> (401,'Mansi','CS'),
+    -> (501,'Komal','EXTC'),
+    -> (601,'Rahul','CS');
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+SELECT:-
+
+mysql> select * from employee;
++--------+----------+--------+
+| emp_no | emp_name | branch |
++--------+----------+--------+
+|    101 | Charmi   | EXTC   |
+|    201 | Bhavya   | CS     |
+|    301 | Disha    | IT     |
+|    401 | Mansi    | CS     |
+|    501 | Komal    | EXTC   |
+|    601 | Rahul    | CS     |
++--------+----------+--------+
+6 rows in set (0.00 sec)
+
+DELETE:-
+
+mysql>  delete from employee where emp_no=501;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee;
++--------+----------+--------+
+| emp_no | emp_name | branch |
++--------+----------+--------+
+|    101 | Charmi   | EXTC   |
+|    201 | Bhavya   | CS     |
+|    301 | Disha    | IT     |
+|    401 | Mansi    | CS     |
+|    601 | Rahul    | CS     |
++--------+----------+--------+
+5 rows in set (0.00 sec)
+
+SELECT:-
+
+mysql> select emp_name from employee where branch='IT';
++----------+
+| emp_name |
++----------+
+| Disha    |
++----------+
+1 row in set (0.00 sec)
+
+UPDATE:-
+
+mysql> update employee set emp_name='Shreya' where emp_no=601;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+----------+--------+
+| emp_no | emp_name | branch |
++--------+----------+--------+
+|    101 | Charmi   | EXTC   |
+|    201 | Bhavya   | CS     |
+|    301 | Disha    | IT     |
+|    401 | Mansi    | CS     |
+|    601 | Shreya   | CS     |
++--------+----------+--------+
+5 rows in set (0.00 sec)
