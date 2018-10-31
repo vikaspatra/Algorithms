@@ -1,0 +1,101 @@
+mysql> use se553;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_se553 |
++-----------------+
+| customer        |
+| department      |
+| emp             |
+| employee        |
+| order2          |
+| student         |
++-----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student ;
++------------+--------------+-----------+-------+------------+
+| student_id | student_name | subject   | marks | department |
++------------+--------------+-----------+-------+------------+
+|          1 | MITESH       | PHYSICS   |    99 | IT         |
+|          2 | BRUCE        | MECHANICS |    33 | COMP       |
+|          3 | WOLVERINE    | BEE       |    52 | IT         |
+|          4 | JIREN        | PYTHON    |    19 | ETX        |
+|          5 | VEGETA       | DSA       |    45 | COMP       |
+|          6 | GOKU         | DBMS      |    78 | EXTC       |
+|          7 | HULK         | CHEMISTRY |    69 | ETX        |
+|          8 | DEADPOOL     | JAVA      |    10 | COMP       |
+|          9 | TONY         | MATHS     |    93 | IT         |
+|         10 | KICK         | PHYSICS   |    81 | EXTC       |
+|        202 | COMP         | 2         |    33 | PHYSICS    |
++------------+--------------+-----------+-------+------------+
+11 rows in set (0.04 sec)
+
+mysql> create view student_details as
+    -> select student_id , student_name , department from student ;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from student_details ;
++------------+--------------+------------+
+| student_id | student_name | department |
++------------+--------------+------------+
+|          1 | MITESH       | IT         |
+|          2 | BRUCE        | COMP       |
+|          3 | WOLVERINE    | IT         |
+|          4 | JIREN        | ETX        |
+|          5 | VEGETA       | COMP       |
+|          6 | GOKU         | EXTC       |
+|          7 | HULK         | ETX        |
+|          8 | DEADPOOL     | COMP       |
+|          9 | TONY         | IT         |
+|         10 | KICK         | EXTC       |
+|        202 | COMP         | PHYSICS    |
++------------+--------------+------------+
+11 rows in set (0.00 sec)
+
+mysql> update student_details
+    -> set student_id = 11 where student_name = 'COMP';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student ;
++------------+--------------+-----------+-------+------------+
+| student_id | student_name | subject   | marks | department |
++------------+--------------+-----------+-------+------------+
+|          1 | MITESH       | PHYSICS   |    99 | IT         |
+|          2 | BRUCE        | MECHANICS |    33 | COMP       |
+|          3 | WOLVERINE    | BEE       |    52 | IT         |
+|          4 | JIREN        | PYTHON    |    19 | ETX        |
+|          5 | VEGETA       | DSA       |    45 | COMP       |
+|          6 | GOKU         | DBMS      |    78 | EXTC       |
+|          7 | HULK         | CHEMISTRY |    69 | ETX        |
+|          8 | DEADPOOL     | JAVA      |    10 | COMP       |
+|          9 | TONY         | MATHS     |    93 | IT         |
+|         10 | KICK         | PHYSICS   |    81 | EXTC       |
+|         11 | COMP         | 2         |    33 | PHYSICS    |
++------------+--------------+-----------+-------+------------+
+11 rows in set (0.00 sec)
+
+mysql> update student
+    -> set student_id = 12 where student_name = 'COMP';
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student_details ;
++------------+--------------+------------+
+| student_id | student_name | department |
++------------+--------------+------------+
+|          1 | MITESH       | IT         |
+|          2 | BRUCE        | COMP       |
+|          3 | WOLVERINE    | IT         |
+|          4 | JIREN        | ETX        |
+|          5 | VEGETA       | COMP       |
+|          6 | GOKU         | EXTC       |
+|          7 | HULK         | ETX        |
+|          8 | DEADPOOL     | COMP       |
+|          9 | TONY         | IT         |
+|         10 | KICK         | EXTC       |
+|         12 | COMP         | PHYSICS    |
++------------+--------------+------------+
+11 rows in set (0.00 sec)
+

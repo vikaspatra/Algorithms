@@ -1,0 +1,113 @@
+NESTED QUERIES:-
+
+mysql> create table customer
+    -> (
+    -> cust_no int primary key,
+    -> cust_name varchar(20),
+    -> cust_address varchar(20),
+    -> cust_phoneno int,
+    -> order_id int
+    -> );
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> create table order
+    -> (
+    -> order_id int primary key,
+    -> order_name varchar(20),
+    -> status varchar(25),
+    -> cust_num int,
+    -> amount int
+    -> );
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> desc customer;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| cust_no          | int(11)     | NO   | PRI | NULL    |       |
+| cust_name        | varchar(20) | YES  |     | NULL    |       |
+| cust_address     | varchar(20) | YES  |     | NULL    |       |
+| cust_phoneno     | int(11)     | YES  |     | NULL    |       |
+| order_id         | int(11)     | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc order;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| order_id      | int(11)     | NO   | PRI | NULL    |       |
+| order_name    | varchar(20) | YES  |     | NULL    |       |
+| status        | varchar(25) | YES  |     | NULL    |       |
+| cust_num      | int(11)     | YES  |     | NULL    |       |
+| amount        | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer values(1,'abc','chembur',985664,101),(2,'def','mulund',985664,202),
+    -> (3,'pqr','kurla',985664,303),(4,'mno','kalyan',985664,404),(5,'xyz','vashi',985664,505),
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into order values (101,'books','delivered',1,2000),(202,'medical','undelivered',2,500),
+    -> (303,'fashion','delivered',3,5000),(404,'electronics','processing',4,100000),    
+    -> (505,'furniture','undelivered',5,50000);
+Records: 5  Duplicates: 0  Warnings: 0
+
+
+
+
+mysql> select * from customer
++-------------+-------------+--------------+--------------+----------+
+|   cust_no   |  cust_name  | cust_address | cust_phoneno | order_id |
++-------------+-------------+--------------+--------------+----------+
+|   1         |    abc      |    chembur   |   985664     |   101    |       
+|   2         |    def      |    mulund    |   985664     |   202    |       
+|   3         |    pqr      |    kurla     |   985664     |   303    | 
+|   4         |    mno      |    kalyan    |   985664     |   404    |
+|   5         |    xyz      |    vashi     |   985664     |   505    |
++-------------+-------------+--------------+--------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from order
++--------------+---------------+------------+----------+----------+
+|   order_id   |   order_name  |   status   | cust_num |  amount  |
++--------------+---------------+------------+----------+----------+
+|   101        |   books       | delivered  |   1      |   2000   |       
+|   202        |   medical     | undelivered|   2      |   500    |       
+|   303        |   fashion     | delivered  |   3      |   5000   | 
+|   404        |   electronics | processing |   4      |   100000 |
+|   505        |   furniture   | undelivered|   5      |   50000  |
++--------------+---------------+------------+----------+----------+
+5 rows in set (0.00 sec)
+
+NESTED QUERIES:-
+
+mysql> select cust_name from customer
+    -> where cust_no=(select customer_no from orders where order_name='books');
++-----------+
+| cust_name |
++-----------+
+|     abc   |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select amount from order
+    -> where custr_no=(select cust_no from customer where cust_name='abc');
++--------+
+| amount |
++--------+
+|  2000  |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select status from order
+    -> where order_id=(select order_id from customer where cust_name='xyz');
++-------------+
+| status      |
++-------------+
+| undelivered |
++-------------+
+1 row in set (0.00 sec)
+
+
+
