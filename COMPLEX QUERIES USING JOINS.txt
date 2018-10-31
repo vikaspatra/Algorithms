@@ -1,0 +1,191 @@
+CREATING TABLE:-
+
+mysql> create table dept
+    -> (
+    -> dept_num int primary key,
+    -> dept_name varchar(20)
+    -> );
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> create table emp
+    -> (
+    -> emp_num int primary key,
+    -> emp_name varchar(20),
+    -> dept_no int references dept
+    -> );
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> desc dept;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_num  | int(11)     | NO   | PRI | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_num  | int(11)     | NO   | PRI | NULL    |       |
+| emp_name | varchar(20) | YES  |     | NULL    |       |
+| dept_no  | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+INSERTING VALUES IN TABLES:-
+
+mysql> insert into dept values(1,'IT'),(2,'CS'),(3,'EXTC'),(4,'IT'),(5,'IT'),
+(6,'CS');
+Query OK, 6 rows affected (0.10 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp values(101,'Zeeshan',1),(102,'Vaishnavi',5),
+(103,'Dishant',3),(104,'Charmi',9),(105,'Mansi',1),(106,'Harshit',8);
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+DISPLAYING TABLE WITH VALUES:-
+
+mysql> select * from dept;
++----------+-----------+
+| dept_num | dept_name |
++----------+-----------+
+|        1 | IT        |
+|        2 | CS        |
+|        3 | EXTC      |
+|        4 | IT        |
+|        5 | IT        |
+|        6 | CS        |
++----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from emp;
++---------+-----------+---------+
+| emp_num | emp_name  | dept_no |
++---------+-----------+---------+
+|     101 | Zeeshan   |       1 |
+|     102 | Vaishnavi |       5 |
+|     103 | Dishant   |       3 |
+|     104 | Charmi    |       9 |
+|     105 | Mansi     |       1 |
+|     106 | Harshit   |       8 |
++---------+-----------+---------+
+6 rows in set (0.00 sec)
+
+INNER JOIN QUERY:-
+
+mysql> select e.emp_name,d.dept_name
+    -> from employee e,dept d
+    -> where e.dept_no=d.dept_num;
++-----------+-----------+
+| emp_name  | dept_name |
++-----------+-----------+
+| Zeeshan   | IT        |
+| Vaishnavi | IT        |
+| Dishant   | EXTC      |
+| Mansi     | IT        |
++-----------+-----------+
+4 rows in set (0.00 sec)
+
+OUTER LEFT JOIN QUERY:-
+
+mysql> select e.emp_name,d.dept_name
+    -> from employee e left outer join dept d
+    -> on e.dept_no=d.dept_num;
++-----------+-----------+
+| emp_name  | dept_name |
++-----------+-----------+
+| Zeeshan   | IT        |
+| Vaishnavi | IT        |
+| Dishant   | EXTC      |
+| Charmi    | NULL      |
+| Mansi     | IT        |
+| Harshit   | NULL      |
++-----------+-----------+
+6 rows in set (0.00 sec)
+
+OUTER RIGHT JOIN QUERY:-
+
+mysql> select e.emp_name,d.dept_name
+    -> from employee e right outer join dept d
+    -> on e.dept_no=d.dept_num;
++-----------+-----------+
+| emp_name  | dept_name |
++-----------+-----------+
+| Zeeshan   | IT        |
+| Vaishnavi | IT        |
+| Dishant   | EXTC      |
+| Mansi     | IT        |
+| NULL      | CS        |
+| NULL      | IT        |
+| NULL      | CS        |
++-----------+-----------+
+7 rows in set (0.00 sec)
+
+OUTER LEFT JOIN QUERY:-
+
+mysql> select e.emp_name,d.dept_name
+    -> from employee e left outer join dept d
+    -> on e.dept_no>1;
++-----------+-----------+
+| emp_name  | dept_name |
++-----------+-----------+
+| Vaishnavi | IT        |
+| Dishant   | IT        |
+| Charmi    | IT        |
+| Harshit   | IT        |
+| Vaishnavi | CS        |
+| Dishant   | CS        |
+| Charmi    | CS        |
+| Harshit   | CS        |
+| Vaishnavi | EXTC      |
+| Dishant   | EXTC      |
+| Charmi    | EXTC      |
+| Harshit   | EXTC      |
+| Vaishnavi | IT        |
+| Dishant   | IT        |
+| Charmi    | IT        |
+| Harshit   | IT        |
+| Vaishnavi | IT        |
+| Dishant   | IT        |
+| Charmi    | IT        |
+| Harshit   | IT        |
+| Vaishnavi | CS        |
+| Dishant   | CS        |
+| Charmi    | CS        |
+| Harshit   | CS        |
+| Zeeshan   | NULL      |
+| Mansi     | NULL      |
++-----------+-----------+
+26 rows in set (0.00 sec)
+
+OUTER RIGHT JOIN QUERY:-
+
+mysql> select e.emp_name,d.dept_name
+    -> from employee e right outer join dept d
+    -> on e.dept_no>3;
++-----------+-----------+
+| emp_name  | dept_name |
++-----------+-----------+
+| Vaishnavi | IT        |
+| Vaishnavi | CS        |
+| Vaishnavi | EXTC      |
+| Vaishnavi | IT        |
+| Vaishnavi | IT        |
+| Vaishnavi | CS        |
+| Charmi    | IT        |
+| Charmi    | CS        |
+| Charmi    | EXTC      |
+| Charmi    | IT        |
+| Charmi    | IT        |
+| Charmi    | CS        |
+| Harshit   | IT        |
+| Harshit   | CS        |
+| Harshit   | EXTC      |
+| Harshit   | IT        |
+| Harshit   | IT        |
+| Harshit   | CS        |
++-----------+-----------+
+18 rows in set (0.00 sec)

@@ -1,0 +1,214 @@
+AGGREGATE FUNCTIONS, GROUP BY HAVING QUERIES:-
+
+mysql> create table department
+    -> (
+    -> dept_no numeric(5,0) primary key,
+    -> dept_name varchar(20),
+    -> teacher_name varchar(20),
+    -> course_name varchar(20)
+    -> );
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> create table student
+    -> (
+    -> std_id int primary key,
+    -> std_name varchar(20),
+    -> sub_name varchar(20),
+    -> grades int,
+    -> dept_name varchar(20) references department
+    -> );
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> desc department;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| dept_no      | decimal(5,0) | NO   | PRI | NULL    |       |
+| dept_name    | varchar(20)  | YES  |     | NULL    |       |
+| teacher_name | varchar(20)  | YES  |     | NULL    |       |
+| course_name  | varchar(20)  | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc student;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| std_id    | int(11)     | NO   | PRI | NULL    |       |
+| std_name  | varchar(20) | YES  |     | NULL    |       |
+| sub_name  | varchar(20) | YES  |     | NULL    |       |
+| grades    | int(11)     | YES  |     | NULL    |       |
+| dept_name | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into department values(101,'IT','PP','BEE'),(202,'CS','KG','dbms'),
+    -> (303,'ELE','GN','maths'),(404,'IT','RR','chemistry'),(505,'EXTC','NJ','pcom'),
+    -> (606,'CS','SM','ED'),(707,'ELE','JG','java'),
+    -> (808,'EXTC','SS','physics'),(909,'IT','SN','ld'),(1010,'CS','AG','mechanics');
+Query OK, 10 rows affected (0.14 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> insert into student values(1,'abc','maths',70,'IT'),(2,'def','dbms',85,'EXTC'),
+    -> (3,'pqr','java',75,'ELE'),(4,'jkl','pcom',65,'CS'),(5,'mno','ld',50,'IT'),
+    -> (6,'pqr','chemistry',80,'ELE'),(7,'tuv','mechnanics',60,'ELE'),
+    -> (8,'wxy','physics',90,'CS'),(9,'ghi','BEE',55,'IT'),(10,'sze','ED',85,'CS');
+Query OK, 10 rows affected (0.14 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from department
++-----------+-----------+--------------+-------------+
+| dept_no   | dept_name | teacher_name | course_name |
++-----------+-----------+--------------+-------------+
+|   101     |    IT     |     PP       |   BEE       |       
+|   202     |    CS     |     KG       |   dbms      |       
+|   303     |    ELE    |     GN       |   maths     |
+|   404     |    IT     |     RR       |   chemmistry|
+|   505     |    EXTC   |     NJ       |   pcom      |
+|   606     |    CS     |     SM       |   ED        |
+|   707     |    ELE    |     JG       |   java      |
+|   808     |    EXTC   |     SS       |   physics   |
+|   909     |    IT     |     SN       |   ld        |
+|   1010    |    CS     |     AG       |   mechanics |
++-----------+-----------+--------------+-------------+
+10 rows in set (0.00 sec)
+
+ 
+mysql> select * from student
++-------------+-------------+--------------+--------+-----------+
+| std_id      | std_name    | sub_name     | grades | dept_name |
++-------------+-------------+--------------+--------+-----------+
+|   1         |    abc      |    maths     |  70    |    IT     |       
+|   2         |    def      |    dbms      |  85    |    EXTC   |       
+|   3         |    pqr      |    java      |  75    |    ELE    |
+|   4         |    jkl      |    pcom      |  65    |    CS     |
+|   5         |    mno      |    ld        |  50    |    IT     |
+|   6         |    pqr      |    chemistry |  80    |    ELE    |
+|   7         |    tuv      |    mechanics |  60    |    ELE    |
+|   8         |    wxy      |    physics   |  90    |    CS     |
+|   9         |    ghi      |    BEE       |  55    |    IT     |
+|   10        |    sze      |    ED        |  85    |    CS     |
++-------------+-------------+--------------+--------+-----------+
+10 rows in set (0.00 sec)
+ 
+AGGREGATE FUNCTIONS:-
+
+mysql> select min(grades) from student;
++-------------+
+| min(grades) |
++-------------+
+|          50 |
++-------------+
+1 row in set (0.02 sec)
+
+
+
+
+
+mysql> select max(grades) from student;
++-------------+
+| max(grades) |
++-------------+
+|          90 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(grades)from student;
++-------------+
+| avg(grades) |
++-------------+
+|     71.5000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(grades) from student;
++-------------+
+| sum(grades) |
++-------------+
+|         715 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(grades) from student;
++---------------+
+| count(grades) |
++---------------+
+|            10 |
++---------------+
+1 row in set (0.00 sec)
+
+GROUP BY HAVING QUERIES:-
+
+mysql> select std_id,dept_name
+    -> from student
+    -> group by dept_name
+    -> having dept_name='IT';
++--------+-----------+
+| std_id | dept_name |
++--------+-----------+
+|      1 | IT        |
++--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select std_id,dept_name
+    -> from student
+    -> group by dept_name;
++--------+-----------+
+| std_id | dept_name |
++--------+-----------+
+|    4   |    CS     |
+|    3   |    ELE    |
+|    2   |    EXTC   |
+|    1   |    IT     |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_name,avg(grades)
+    -> from student
+    -> group by dept_name
+    -> having avg(grades)>50;
++-----------+-------------+
+| dept_name | avg(grades) |
++-----------+-------------+
+| CS        |   80.0000   |
+| ELE       |   71.6667   |
+| EXTC      |   85.0000   |
+| IT        |   58.3333   |
++-----------+-------------+
+4 rows in set (0.04 sec)
+
+mysql> select dept_name,max(grades)
+    -> from student
+    -> group by dept_name
+    -> having max(grades)>90;
+Empty set (0.00 sec)
+
+mysql> select dept_name,min(grades)
+    -> from student
+    -> group by dept_name
+    -> having min(grades)>60;
++-----------+-------------+
+| dept_name | min(grades) |
++-----------+-------------+
+| CS        |      65     |
+| EXTC      |      85     |
++-----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select std_name,avg(grades)
+    -> from student
+    -> group by grades
+    -> having avg(grades)>60;
++----------+-------------+
+| std_name | avg(grades) |
++----------+-------------+
+| jkl      |   65.0000   |
+| abc      |   70.0000   |
+| pqr      |   75.0000   |
+| pqr      |   80.0000   |
+| def      |   85.0000   |
+| wxy      |   90.0000   |
++----------+-------------+
+6 rows in set (0.00 sec)
+
+
