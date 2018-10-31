@@ -1,0 +1,236 @@
+mysql> create database dhairyachheda;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| bharat             |
+| bharatgupta        |
+| dhairyachheda      |
+| dinesh_mali        |
+| employee           |
+| mysql              |
+| performance_schema |
+| se0059             |
+| se11               |
+| se233              |
+| se35               |
+| se43               |
+| se507              |
+| se508              |
+| se515a             |
+| se520              |
+| se54               |
+| se55               |
+| se554              |
+| se555              |
+| se5555             |
+| se558              |
+| se559              |
+| se571              |
+| se579              |
+| se58               |
+| se59               |
+| se599              |
+| se5_09             |
+| se5_20             |
+| se5ns              |
+| se6                |
+| se600              |
+| se6031             |
+| se609              |
+| se620              |
+| se631              |
+| se635              |
+| se641              |
+| se645              |
+| se651              |
+| se66               |
+| se660              |
+| se666              |
+| se667              |
+| se6_57             |
+| se70               |
+| se76               |
+| se8740             |
+| se88               |
+| se89               |
+| se95               |
+| sr68               |
+| student            |
+| sys                |
+| te670              |
+| us_states          |
+| workspace          |
++--------------------+
+60 rows in set (0.51 sec)
+
+mysql> use dhairyachheda;
+Database changed
+
+mysql> use dhairyachheda;
+Database changed
+mysql> create table student
+    -> (
+    ->  sid numeric(5,0) primary key,
+    ->  name varchar(20),
+    ->  dob date,
+    ->  phone_no numeric(10,0)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc student;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| sid      | decimal(5,0)  | NO   | PRI | NULL    |       |
+| name     | varchar(20)   | YES  |     | NULL    |       |
+| dob      | date          | YES  |     | NULL    |       |
+| phone_no | decimal(10,0) | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+mysql> alter table student
+    -> add city varchar(20);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| sid      | decimal(5,0)  | NO   | PRI | NULL    |       |
+| name     | varchar(20)   | YES  |     | NULL    |       |
+| dob      | date          | YES  |     | NULL    |       |
+| phone_no | decimal(10,0) | YES  |     | NULL    |       |
+| city     | varchar(20)   | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc student;
+ERROR 1146 (42S02): Table 'dhairyachheda.student' doesn't exist
+
+mysql> create table depositor
+    -> (
+    ->  acc_no numeric(5,0) primary key,
+    ->  dname varchar(20),
+    ->  bal numeric(10,2)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc depositor;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| acc_no | decimal(5,0)  | NO   | PRI | NULL    |       |
+| dname  | varchar(20)   | YES  |     | NULL    |       |
+| bal    | decimal(10,2) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into depositor values(1234,'abc',10000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into depositor values(5678,'def',5000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into depositor values(9023,'ghi',6589);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into depositor values(5682,'jkl',5826.1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into depositor values(4692,'mno',4702.7);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc depositor;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| acc_no | decimal(5,0)  | NO   | PRI | NULL    |       |
+| dname  | varchar(20)   | YES  |     | NULL    |       |
+| bal    | decimal(10,2) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into depositor(acc_no,dname,bal)
+    -> values(1,'abc',10000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *
+    -> from depositor;
++--------+-------+----------+
+| acc_no | dname | bal      |
++--------+-------+----------+
+|   1234 | abc   | 10000.00 |
+|   5678 | def   |  5000.00 |
+|   9023 | ghi   |  6589.00 |
+|   5682 | jkl   |  5826.10 |
+|   4692 | mno   |  4702.70 |
+|      1 | abc   | 10000.00 |
++--------+-------+----------+
+6 rows in set (0.00 sec)
+
+mysql> delete from depositor
+    -> where acc_no =1;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> delete from depositor
+    -> where dname='abc';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from depositor
+    -> where bal=10000;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *
+    -> from depositor;
++--------+-------+---------+
+| acc_no | dname | bal     |
++--------+-------+---------+
+|   5678 | def   | 5000.00 |
+|   9023 | ghi   | 6589.00 |
+|   5682 | jkl   | 5826.10 |
+|   4692 | mno   | 4702.70 |
++--------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> insert into depositor values(1234,'abc',10000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *
+    -> from depositor;
++--------+-------+----------+
+| acc_no | dname | bal      |
++--------+-------+----------+
+|   1234 | abc   | 10000.00 |
+|   5678 | def   |  5000.00 |
+|   9023 | ghi   |  6589.00 |
+|   5682 | jkl   |  5826.10 |
+|   4692 | mno   |  4702.70 |
++--------+-------+----------+
+5 rows in set (0.02 sec)
+
+mysql> update depositor
+    -> set dname='xyz'
+    -> where dname='mno';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *
+    -> from depositor;
++--------+-------+----------+
+| acc_no | dname | bal      |
++--------+-------+----------+
+|   1234 | abc   | 10000.00 |
+|   5678 | def   |  5000.00 |
+|   9023 | ghi   |  6589.00 |
+|   5682 | jkl   |  5826.10 |
+|   4692 | xyz   |  4702.70 |
++--------+-------+----------+
+5 rows in set (0.00 sec)
