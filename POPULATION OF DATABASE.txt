@@ -1,0 +1,141 @@
+
+CREATING TABLE;:-
+
+mysql> create table student
+    -> (
+    ->   StdID numeric(10,0) primary key,
+    ->   StdName varchar(20),
+    ->   DeptName varchar(20),
+    ->   PhoneNo numeric(10,0),
+    ->   Marks numeric(5,2),
+    ->   FavSubject varchar(20),
+    ->   InstName varchar(20)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc student;
++------------------+---------------+------+-----+---------+-------+
+| FieLD            | Type          | Null | Key | Default | Extra |
++------------------+---------------+------+-----+---------+-------+
+| StudentID        | decimal(10,0) | NO   | PRI | NULL    |       |
+| StudentName      | varchar(20)   | YES  |     | NULL    |       |
+| DepartmentName   | varchar(20)   | YES  |     | NULL    |       |
+| PhoneName        | decimal(10,0) | YES  |     | NULL    |       |
+| Percentage       | decimal(5,2)  | YES  |     | NULL    |       |
+| FavouriteSubject | varchar(20)   | YES  |     | NULL    |       |
+| InstructorName   | varchar(20)   | YES  |     | NULL    |       |
++------------------+---------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table instructor
+    -> (
+    ->    InstructorID numeric(10,0) primary key,
+    ->    InstructorName varchar(20),
+    ->   Subject varchar(20),
+    ->   StudentID numeric(10,0) references student,
+    ->   PhoneNo numeric(5,2),
+    ->   StartDOC numeric(10,0),
+    ->   EndDOC numeric(10,0)
+    -> );
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> desc instructor;
++----------------+---------------+------+-----+---------+-------+
+| FieLD          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| InstructorID   | decimal(10,0) | NO   | PRI | NULL    |       |
+| InstructorName | varchar(20)   | YES  |     | NULL    |       |
+| Subject        | varchar(20)   | YES  |     | NULL    |       |
+| StudentID      | decimal(10,0) | YES  |     | NULL    |       |
+| PhoneNo        | decimal(5,2)  | YES  |     | NULL    |       |
+| StartDOC       | decimal(10,0) | YES  |     | NULL    |       |
+| EndDOC         | decimal(10,0) | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+POPULATING TABLE:-
+
+insert into student values  (1, 'Name1','IT',987665533,98,'DBMS','KG'),(2, 'Name2','IT',9977423,83,'MATHS','SPD'),
+(3, 'Name3','IT',9977423,83,'DBMS','KG'),(4, 'Name4','IT',9977423,63,'MATHS','SPD'), 
+(5, 'Name5','IT',9977423,83,'MATHS','SPD'),(6, 'Name6','IT',9977423,90,'MATHS','SPD'),
+(7, 'Name7','CS',9977423,34,'DSA','MG'),(8, 'Name8','CS',9977423,83,'MATHS','GN'), 
+(9, 'Name9','IT',9977423,83,'MATHS','SPD'),(10, 'Name10','CS',9977423,83,'MATHS','SPD'), 
+(11, 'Name11','EXTC',9977423,56,'MATHS','SPD'),(12, 'Name12','IT',9977423,78,'MATHS','SPD'),
+(13, 'Name13','CS',9977423,83,'MATHS','SPD'),(14, 'Name14','IT',9977423,43,'MATHS','SPD'), 
+(15, 'Name15','IT',9977423,83,'MATHS','SPD'),(16, 'Name16','CS',9977423,98,'MATHS','SPD'),
+(17, 'Name17','EXTC',9977423,83,'MATHS','SPD'),(18, 'Name18','IT',9977423,83,'DBMS','KG'),
+(19, 'Name19','CS',9977423,83,'MATHS','SPD'),(20, 'Name20','IT',9977423,83,'MATHS','SPD'),
+(21, 'Name21','IT',9977423,83,'DSA','RM'),(22, 'Name22','CS',9977423,67,'MATHS','SPD'), 
+(23, 'Name23','IT',9977423,83,'MATHS','SPD'),(24, 'Name24','IT',9977423,83,'MATHS','SPD'),
+(25, 'Name25','CS',9977423,83,'MATHS','SPD'),(26, 'Name26','EXTC',9977423,83,'MATHS','SPD'), 
+(27, 'Name27','IT',9977423,90,'LD','SN'),(28, 'Name28','CS',9977423,83,'MATHS','SPD'),
+(29, 'Name29','EXTC',9977423,83,'MATHS','SPD'),(30, 'Name30','IT',9977423,34,'MATHS','SPD'),
+(31, 'Name31','CS',9977423,83,'MATHS','SPD'),(32, 'Name32','EXTC',9977423,67,'MATHS','SPD'), 
+(33, 'Name33','IT',9977423,83,'MATHS','SPD'),(34, 'Name34','CS',9977423,73,'MATHS','SPD'),
+(35, 'Name35','EXTC',9977423,87,'MATHS','SPD'),(36, 'Name36','IT',9977423,78,'DSA','MG'),
+(37, 'Name37','CS',9977423,83,'MATHS','SPD'),(38, 'Name38','EXTC',9977423,98,'MATHS','SPD'), 
+(39, 'Name39','IT',9977423,97,'MATHS','SPD'),(40, 'Name40','CS',9977423,83,'MATHS','SPD'), 
+(41, 'Name41','IT',9977423,83,'MATHS','SPD'),(42, 'Name42','IT',9977423,83,'MATHS','SPD'), 
+(43, 'Name43','IT',9977423,65,'MATHS','SPD'),(44, 'Name44','EXTC',9977423,54,'MATHS','SPD'), 
+(45, 'Name45','IT',9977423,56,'MATHS','SPD'),(46, 'Name46','IT',9977423,83,'MATHS','SPD'), 
+(47, 'Name47','IT',9977423,83,'MATHS','SPD'),(48, 'Name48','IT',9977423,83,'MATHS','SPD'),
+(49, 'Name49','IT',9977423,83,'MATHS','SPD'),(50, 'Name50','IT',9977423,83,'MATHS','SPD');
+
+mysql> select * from student;
++-------+---------+----------+---------+-------+------------+----------+         
+| StdID | StdName | DeptName | PhoneNo | Marks | FavSubject | InstName |
++-------+---------+----------+---------+-------+------------+----------+
+|     1 | Name1   | IT       |987665533| 98.00 | DBMS       | KG       |                   
+|     2 | Name2   | IT       | 9977423 | 83.00 | MATHS      | SPD      |                
+|     3 | Name3   | IT       | 9977423 | 83.00 | DBMS       | KG       |                  
+|     4 | Name4   | IT       | 9977423 | 63.00 | MATHS      | SPD      |                                                  
+|     5 | Name5   | IT       | 9977423 | 83.00 | MATHS      | SPD      |                   
+|     6 | Name6   | IT       | 9977423 | 90.00 | MATHS      | SPD      |                
+|     7 | Name7   | CS       | 9977423 | 34.00 | DSA        | MG       |              
+|     8 | Name8   | CS       | 9977423 | 83.00 | MATHS      | GN       |                   
+|     9 | Name9   | IT       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    10 | Name10  | CS       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    11 | Name11  | EXTC     | 9977423 | 56.00 | MATHS      | SPD      |                  
+|    12 | Name12  | IT       | 9977423 | 78.00 | MATHS      | SPD      |                  
+|    13 | Name13  | CS       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    14 | Name14  | IT       | 9977423 | 43.00 | MATHS      | SPD      |                  
+|    15 | Name15  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    16 | Name16  | CS       | 9977423 | 98.00 | MATHS      | SPD      |                 
+|    17 | Name17  | EXTC     | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    18 | Name18  | IT       | 9977423 | 83.00 | DBMS       | KG       |                  
+|    19 | Name19  | CS       | 9977423 | 83.00 | MATHS      | SPD      |               
+|    20 | Name20  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    21 | Name21  | IT       | 9977423 | 83.00 | DSA        | RM       |                 
+|    22 | Name22  | CS       | 9977423 | 67.00 | MATHS      | SPD      |                  
+|    23 | Name23  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    24 | Name24  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    25 | Name25  | CS       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    26 | Name26  | EXTC     | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    27 | Name27  | IT       | 9977423 | 90.00 | LD         | SN       |                 
+|    28 | Name28  | CS       | 9977423 | 83.00 | MATHS      | SPD      |              
+|    29 | Name29  | EXTC     | 9977423 | 83.00 | MATHS      | SPD      |                
+|    30 | Name30  | IT       | 9977423 | 34.00 | MATHS      | SPD      |                  
+|    31 | Name31  | CS       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    32 | Name32  | EXTC     | 9977423 | 67.00 | MATHS      | SPD      |                
+|    33 | Name33  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    34 | Name34  | CS       | 9977423 | 73.00 | MATHS      | SPD      |              
+|    35 | Name35  | EXTC     | 9977423 | 87.00 | MATHS      | SPD      |                  
+|    36 | Name36  | IT       | 9977423 | 78.00 | DSA        | MG       |                  
+|    37 | Name37  | CS       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    38 | Name38  | EXTC     | 9977423 | 98.00 | MATHS      | SPD      |                 
+|    39 | Name39  | IT       | 9977423 | 97.00 | MATHS      | SPD      |                   
+|    40 | Name40  | CS       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    41 | Name41  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    42 | Name42  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    43 | Name43  | IT       | 9977423 | 65.00 | MATHS      | SPD      |                
+|    44 | Name44  | EXTC     | 9977423 | 54.00 | MATHS      | SPD      |                  
+|    45 | Name45  | IT       | 9977423 | 56.00 | MATHS      | SPD      |                    
+|    46 | Name46  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                 
+|    47 | Name47  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                
+|    48 | Name48  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    49 | Name49  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                  
+|    50 | Name50  | IT       | 9977423 | 83.00 | MATHS      | SPD      |                   
++-------+---------+----------+---------+-------+------------+----------+               
+50 rows in set (0.00 sec)
+
+ 
